@@ -1,0 +1,21 @@
+version: '2'
+services:
+  web:
+    build: .
+    container_name: fastapi
+    depends_on:
+      - mongo
+      - es
+    links:
+      - mongo:mongodb
+      - es:elasticsearch
+    ports:
+      - 80:80
+  mongo:
+    image: arm64v8/mongo:5.0.9
+    expose:
+      - 27017
+  es:
+    image: elasticsearch:7.1.1
+    expose:
+      - 9200
